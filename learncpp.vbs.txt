@@ -1,0 +1,434 @@
+aici scriu notite
+
+--- unsigned datatype(int , char) le face pe toate in rangeul 0 --> 32677 (aka minecraft funny number)
+The int (integer) type is tailor-made for computers and adapts to the length of a register on the computer. For 16-bit computers, int is thus equivalent to short, whereas
+for 32-bit computers int will be equivalent to long.
+--- char <= short <= int <= long
+--- climits e un header care are inscris valorile la fiecare(INT_MAX , INT_MIN , CHAR_MAX ..etc)
+--- Integral types ---======
+bool
+char, signed char, unsigned char, wchar_t
+short, unsigned short
+int, unsigned int
+long, unsigned long
+----Floating-point types-----=========
+float
+double
+long double
+
+info --> float for simple accuracy
+double for double accuracy
+long double for high accuracy
+
+
+---->The sizeof Operator
+The amount of memory needed to store an object of a certain type can be ascertained
+using the sizeof operator:
+sizeof(name)
+yields the size of an object in bytes, and the parameter name indicates the object type or
+the object itself. For example, sizeof(int)represents a value of 2 or 4 depending on
+the machine. In contrast, sizeof(float) will always equal 4.
+==============================================================================================================
+NUMxNUM aka hexazecimal reprezinta un numar spre exemple 0xFF = 255==============
+=================================================================
+Volatile Objects
+The keyword volatile, which is rarely used, creates variables that can be modified not
+only by the program but also by other programs and external events. Events can be initiated by interrupts or by a hardware clock, for example
+
+-->volatile unsigned long clock_ticks;
+It is also possible to combine the keywords const and volatile when declaring a
+variable.
+-->volatile const unsigned time_to_live;
+Based on this declaration, the variable time_to_live cannot be modified by the program but by external events.
+=============================
+Functii
+int func(int){}; --> aceasta functie ia int ca argument deci el trebuie sa fie int spre exemple func(1);
+daca avem int func(int c){}; el va face pe c int adica func("3"); va merge;
+====================================
+#include <cstdlib>  pentru srand(); , rand();
+====================================
+Header files of the C++ standard library
+
+algorithm ios map stack
+bitset iosfwd memory stdexcept
+complex iostream new streambuf
+dequeue istream numeric string
+exception iterator ostream typeinfo
+fstream limits queue utility
+functional list set valarray
+iomanip locale sstream vector
+
+-------------------------------------------------------
+Header files of the C standard library
+
+assert.h limits.h stdarg.h time.h
+ctype.h locale.h stddef.h wchar.h
+errno.h math.h stdio.h wctype.h
+float.h setjmp.h stdlib.h
+iso646.h signal.h string.h
+=======================================================
+
+toate bibliotecile C standart sunt adaugate in C++ ca sa le accesezi usor adaugi un c in fata spre exemple in C e headeru
+"math.h" in C++ el va fi <cmath>;
+
+===========================
+line(40, '-'), // string with 40 '-'adica daca facem cout<< line; va da
+"----------------------------------------"
+
+getline( cin, name); ia toata linia adica dava vei scrie numele "numele meu" name va fi egal acum cu name.
+daca facem cin >> name; name va fi egal doar cu "numele" adica nu va trece de spatiu
+=======================================================================================
+The four standard streams
+■ cin Object of class istream to control standard input
+■ cout Object of class ostream to control standard output
+■ cerr Object of class ostream to control unbuffered error output
+■ clog Object of class ostream to control buffered error output
+=============================================================================================
+MANIPULATORI IN C++ |||| aka flags
+cout.setf(ios::showpos); ---> face sa spuna ca numerele is pozitive ori negative spre exemple: (aceasta este flaguri)
+cout<< 123; acum va da print ->> +123 --> pot sai dau call si asa |   cout << showpos << 123; // Output: +123 >>> acesta e manipulator;
+|noshowpos| face invers adica default;
+||| Using manipulators is easier than directly accessing flags. For this reason, manipulators are described in
+the following section, whereas the methods setf() and unsetf() are used only under exceptional
+circumstances. |||
+spre exemplu endl; e un mamnipulator
+========================================================================================
+Manipulators formatting integers
+oct --> octal base
+hex --> hex base
+dec ->> decimal base aka default
+showpos -- > Generates a + sign in non-negative numeric output.
+noshowpos -->Generates capital letters in hexadecimal  output.
+uppercase --> Generates capital letters in hexadecimal output.
+nouppercase --> Generates non-negative numeric output without a + sign (by default).
+|///////////////////////|||||||||||||||||||///////////////////////////////////////////////|||||||||||||||||||||////
+Manipulators formatting floating-point numbers
+
+??METODE
+int sionprecision (int n);-->Sets the precision to n
+
+int precision() const;-->Returns the used precision
+
+
+//MANIPULATORI
+
+showpoint/noshowpoint-->Generates a decimal point character shown in floating-point output. The number of digits after the decimal point
+corresponds to the used precision. Trailing zeroes after the decimal point are not printed.If there are no digits after the decimal
+point, the decimal point is not printed (by default).
+
+fixed--> Output in fixed point notation
+
+scientific--> Output in scientific notation
+
+setprecision (int n)--> Sets the precision to n.
+
+
+--------> exemple numerul 12 in diferite forme 
+By default: 12
+ showpoint: 12.
+ fixed: 12.00
+ scientific: 1.20e+01
+
+_>>>>>>>>>>> metoda cout.precision(n) face precizia la float adica daca avem numberul cout << 1.99999994234234234324323223423423432432432;
+si precizia e 3 adica  metoda cout.precision(3) ori maniulatorul cout << setprecision(3); va da cout la numar ca 1.99;
+****** Note that the header file iomanip must be included when using the manipulator setprecision(). This also applies to all standard manipulators called with at least one
+argument.
+///////==================================================================================
+Element functions for output in fields
+int width() const;-->Returns the minimum field width used
+int width(int n);-->Sets the minimum field width to n
+int fill() const;-->Returns the fill character used
+int fill(int ch);-->Sets the fill character to ch
+Manipulators for output in fields
+setw(int n)->Sets the minimum field width to n
+
+setfill(int ch)->Sets the fill character to ch
+
+left=>Left-aligns output in fields
+
+right->Right-aligns output in fields
+
+internal->Left-aligns output of the sign and
+right-aligns output of the numeric
+value
+
+
+*****The manipulators setw() and setfill() are declared in the header file iomanip
+=================================================
+EXEMPLE:
+#include <iostream> // Obligatory
+#include <iomanip> // declarations
+using namespace std;
+1st Example: cout << '|' << setw(6) << 'X' << '|';
+Output: | X| // Field width 6
+2nd Example: cout << fixed << setprecision(2)
+<< setw(10) << 123.4 << endl
+<< "1234567890" << endl;
+Output: 123.40 // Field width 10
+1234567890
+
+
+ Field Width
+The field width is the number of characters that can be written to a field. If the output
+string is larger than the field width, the output is not truncated but the field is extended.
+The output will always contain at least the number of digits specified as the field width.
+You can either use the width() method or the setw() manipulator to define field
+width.
+Example: cout.width(6); // or: cout << setw(6);
+One special attribute of the field width is the fact that this value is non-permanent:
+the field width specified applies to the next output only, as is illustrated by the examples
+on the opposite page. The first example outputs the character 'X' to a field with width
+of 6, but does not output the '|' character.
+The default field width is 0. You can also use the width() method to get the current
+field width. To do so, call width() without any other arguments.
+Example: int fieldwidth = cout.width();
+
+Example: cout << setfill('*') << setw(5) << 12;
+// Output: ***12
+
+Example: cout.width(6); cout.fill('0');
+cout << internal << -123; // Output: -00123
+
+**The input buffer is cleared and error flags are reset by calling the sync() and clear() methods. This
+ensures that the program will wait for new input for the price, even if more than 15 characters have
+been entered for the label.
+
+
+==========================================================================
+It is also possible to output the character code for a character. In this case the character
+code is stored in an int variable and the variable is then output.
+Example: int code = '0';
+cout << code; // Output: 48
+================================================================
+ Reading and Writing Characters
+You can use the methods get() and put() to read or write single characters. The
+get() method reads the next character from a stream and stores it in the given char
+variable.
+Example: char ch;
+cin.get(ch);
+=======================================
+setw(n); poate fi folosit in cout ca sa scrie spatii adica cout<< setw(8); va printa 9 spatii
+======================================
+MACROS
+
+#define PI 3.1415926536
+#define START 0.0 // Lower limit
+#define END (2.0 * PI) // Upper limit
+#define STEP (PI / 8.0) // Step width
+#define HEADER (cout << \
+" ***** Sine Function Table *****\n\n")
+
+
+daca dam call
+HEADER; el va printa -- ***** Sine Function Table *****\n\n
+
+=========================================================================================
+
+
+Syntax: #define name substitutetext
+
+
+
+
+
+Example: #define MIN(a,b) ((a)<(b)? (a) : (b))
+. . . // Here MIN can be called
+#undef MIN
+
+Syntax: #ifdef name
+. . . // Block, which will be compiled
+// if name is defined.
+#endif
+
+
+ Macros: A macro definition must be visible to the compiler. The substitute text is
+inserted and re-compiled each time the macro is called. For this reason, a macro
+should contain only a few statements to avoid inflating the object file each time
+the macro is called. The speed of program execution will, however, improve since
+the program does not need to branch to sub-routines in contrast to normal function calls. This can become apparent when macros are used within loops, for
+example.
+Side effects of macros are possible if the substitute text contains multiple
+instances of a parameter. The statement SQUARE( ++x ) expands to ((++x)
+* (++x)), for example. The variable x is incremented twice and the product
+does not represent the square of the incremented number.
+■ Functions: Functions are compiled independently. The linker then links them
+into the executable file. The program branches to the function whenever it is
+called, and this can reduce the speed of execution in comparison to a macro.
+However, the executable file will be shorter as it contains only one instance of
+the function code.
+The compiler checks the argument types, and the side effects seen with
+macros cannot occur.
+
+
+
+
+
+
+If you have a header file named "article.h", you can identify the header by defining a symbol, such as _ARTICLE_, within that file.
+Example: #ifndef _ARTICLE_
+#define _ARTICLE_
+. . . // Content of the header file
+#endif
+If you have already included the header, _ARTICLE_ will already be defined, and the
+contents of the header file need not be compiled. This technique is also employed by
+standard header files
+
+===========================================================================
+FUNCTII INLINE IS CA macrourile doar ca ele nu copie si nu sunt ca cele normale deoarece nu au branching
+spre execmple
+
+cand dam call la func();-----------------------------------------
+compileru sa duce sa caute                 ^^^
+|                                           |
+|
+|                                           |
+V
+void func(): // o gasito                    |
+--acum citeste tot cei aici si se reintoare sus
+
+
+functia inlien e la fel doar ca o copie , macrourile cauzeaza errori
+
+
+
+=============================================================
+
+C++ allows you to overload functions, that is, different functions can have the same
+name.
+Example: int max( int x, int y);
+double max( double x, double y);
+
+
+=========================================------------------==================
+ Storage Class Specifiers
+The storage class of an object is determined by
+■ the position of its declaration in the source file
+■ the storage class specifier, which can be supplied optionally.
+The following storage class specifiers can be used
+extern static auto register
+
+
+
+EXTERN-------------
+An object belonging to the extern storage class is initially only available in the source
+file where it was defined. If you need to use an object before defining it or in another
+module, you must first declare the object. If you do not declare the object, the compiler
+issues a message stating that the object is unknown. The declaration makes the name and
+type of the object known to the compiler.
+In contrast to a definition, the storage class identifier extern precedes the object
+name in a declaration.
+Example: extern long position; // Declaration
+
+
+STATIC------------------------
+ Static Objects
+If an object definition is preceded by the static keyword, the object belongs to the
+static storage class.
+Example: static int count;
+The most important characteristic of static objects is their static (or permanent) lifetime.
+Static objects are not placed on the stack, but are stored in the data area of a program
+just like external objects
+
+
+AUTO------------------
+ auto Objects
+The storage class auto (automatic) includes all those objects defined within a function
+but without the static keyword. The parameters of a function are also auto objects.
+You can use the auto keyword during a definition.
+Example: auto float radius; // Equivalent to:
+// float radius;
+When the program flow reaches the definition, the object is created on the stack, but in
+contrast to a static type object, the object is destroyed on leaving the block.
+auto objects have no specific initial value if they are not initialized explicitly. However, objects belonging to a class type are normally initialized with default values, which
+can be specified in the class definition
+
+
+REGISTER---------------------------------
+ Using CPU Registers
+To increase the speed of a program, commonly used auto variables can be stored in
+CPU registers instead of on the stack. In this case, the register keyword is used to
+declare the object.
+A register is normally the size of an int variable. In other words, it only makes sense
+to define register variables if the variable is not too large, as in the case of types such
+as char, short, int or pointers. If you omit the type when defining a register variable,
+an int is assumed.
+However, the compiler can ignore the register keyword. The number of registers
+available for register variables depends on your hardware, although two registers are normally available. If a program defines too many register variables in a code block, the
+superfluous variables are placed in the auto storage class.
+
+
+****
+If the keyword static is not used when defining a function, the function must belong
+to the extern storage class.
+******
+----------------------NAMESPACES------------------------
+Example: namespace myLib
+{
+int count;
+double calculate(double, int);
+// . . .
+}
+myLib::count = 7; // Outside of myLib
+
+Example: ::demo(); // Not belonging to any namespace aka global namespace
+
+ using Declarations
+A using declaration makes an identifier from a namespace visible in the current scope.
+Example: using myLib::calculate; // Declaration
+
+
+
+==========================================
+DECE MAIN ARGC ARGV???!!?!
+
+// hello.cpp
+// Demonstrates the command line arguments.
+// Call: hello name1 name2
+// ----------------------------------------------------
+#include <iostream>
+using namespace std;
+int main( int argc, char *argv[])
+{
+if( argc != 3 )
+{
+cerr << "Use: hello name1 name2" << endl;
+return 1;
+}
+cout << "Hello " << argv[1] << '!' << endl;
+cout << "Best wishes \n"
+<< "\tyours " << argv[2] << endl;
+return 0;
+}
+
+âââââââââââââââââââââââââââââââââââââââââââââââââ\\\\\\\\\\\\\\\\\\\=================================================================
+#include <cassert>
+pentru a avea grija de errori
+ZERO = O
+assert(number = ZERO) va da erroare
+daca facem la incuput
+#define NDEBUG 
+
+toate aceste asserturi vor fi ignorate
+==================================================================================================
+cum sa copii constuctori
+
+
+class j(50)
+class x(j) va avea ca argument tot 50
+
+
+
+ori  merge 
+x = j; ori 
+class x = j;
+
+
+an ramas la pag 231
+
+
+
+
+
+
+
+.
